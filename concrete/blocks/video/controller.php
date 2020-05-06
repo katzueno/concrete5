@@ -39,6 +39,11 @@ class Controller extends BlockController
         return isset($this->oggfID) ? (int) $this->oggfID : 0;
     }
 
+    public function getHlsURL()
+    {
+        return isset($this->hlsURL) ? filter_var($this->hlsURL, FILTER_VALIDATE_URL) : '';
+    }
+
     public function getPosterFileID()
     {
         return isset($this->posterfID) ? (int) $this->posterfID : 0;
@@ -70,6 +75,7 @@ class Controller extends BlockController
             'webmfID' => 0,
             'oggfID' => 0,
             'mp4fID' => 0,
+            'hlsURL' => '',
             'posterfID' => 0,
             'width' => 0,
             'videoSize' => 0,
@@ -78,6 +84,7 @@ class Controller extends BlockController
             'webmfID' => max(0, (int) $data['webmfID']),
             'oggfID' => max(0, (int) $data['oggfID']),
             'mp4fID' => max(0, (int) $data['mp4fID']),
+            'hlsURL' => max('', (string) $data['hlsURL']),
             'posterfID' => max(0, (int) $data['posterfID']),
             'videoSize' => max(0, (int) $data['videoSize']),
         ];
@@ -92,10 +99,12 @@ class Controller extends BlockController
         $webmFile = $this->getWebmFileObject();
         $posterFile = $this->getPosterFileObject();
         $oggFile = $this->getOggFileObject();
+        $hlsURL = $this->getHlsURL();
 
         $this->set('posterURL', $posterFile === null ? '' : $posterFile->getURL());
         $this->set('mp4URL', $mp4File === null ? '' : $mp4File->getURL());
         $this->set('webmURL', $webmFile === null ? '' : $webmFile->getURL());
         $this->set('oggURL', $oggFile === null ? '' : $oggFile->getURL());
+        $this->set('hlsURL', $hlsURL === null ? '' : $hlsURL);
     }
 }

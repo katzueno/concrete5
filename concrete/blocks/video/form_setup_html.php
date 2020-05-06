@@ -37,6 +37,14 @@ if (!isset($width)) {
 </fieldset>
 
 <fieldset>
+    <legend><?= t('HTTP Live Streaming'); ?></legend>
+    <div class="form-group">
+        <label class="control-label"><?= t('URL'); ?></label>
+        <?php echo $form->text('hlsURL', isset($hlsURL) ? $hlsURL : ''); ?>
+    </div>
+    <span class="help-block"><?=t('Please be aware that only the latest browsers support HTTP Live Streaming natively. Consider using 3rd party libraries such as video.js in addition.')?></span>
+</fieldset>
+<fieldset>
     <legend><?= t('Video Size'); ?></legend>
     <div class="form-group">
         <div class="radio">

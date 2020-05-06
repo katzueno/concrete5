@@ -12,7 +12,7 @@ if ($c->isEditMode()) {
 	</div>
     <?php
     $loc->popActiveContext();
-} elseif (!$webmURL && !$oggURL && !$mp4URL) {
+} elseif (!$webmURL && !$oggURL && !$mp4URL && !$hlsURL) {
 ?>
     <div class="ccm-edit-mode-disabled-item">
 		<div style="padding: 8px;"><?php echo t('No Video Files Selected.'); ?></div>
@@ -45,6 +45,18 @@ if ($c->isEditMode()) {
         ?>
     </video>
 <?php
-}
-?>
+} elseif ($hlsURL) { ?>
+    <video src="<?=$hlsURL?>" controls="controls" <?php echo $posterURL ? 'poster="' . $posterURL . '"' : '' ?>
+    <?php if ($videoSize == 1) { ?>
+        style="width: 100%"
+    <?php } elseif ($videoSize == 2) { ?>
+        width="<?php echo $width; ?>" style="max-width: 100%;"
+    <?php } else { ?>
+        style="max-width: 100%;"
+        <?php
+    }?>
+    >
+    <?php echo t("Your browser doesn't support the HTML5 video tag.");?>
+    </video>
+<?php } ?>
 </div>
